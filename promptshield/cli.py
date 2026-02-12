@@ -19,6 +19,22 @@ def _default_path(*parts: str) -> Path:
     return Path(__file__).resolve().parent.parent.joinpath(*parts)
 
 
+def _default_rules_path() -> Path:
+    candidates = [
+        Path.cwd().joinpath("rules", "active.json"),
+        Path(__file__).resolve().parent.parent.joinpath("rules", "active.json"),
+        Path.cwd().joinpath("rules", "base.json"),
+        Path(__file__).resolve().parent.parent.joinpath("rules", "base.json"),
+    ]
+
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    # Fall back to the package base.json path; load_rules will raise a clear error if missing.
+    return candidates[-1]
+
+
 def _load_engine(rules_path: Path, policy_path: Path):
     rules = load_rules(rules_path)
     compiled_rules = compile_rules(rules)
@@ -84,7 +100,7 @@ def build_parser() -> argparse.ArgumentParser:
     scan.add_argument("--file", type=str, help="Path to text file")
     scan.add_argument("--stdin", action="store_true", help="Read input from stdin")
     scan.add_argument("--context", type=str, default="chat", help="Pipeline context")
-    scan.add_argument("--rules", type=str, default=str(_default_path("rules", "active.json")))
+    scan.add_argument("--rules", type=str, default=str(_default_rules_path()))
     scan.add_argument("--policy", type=str, default=str(_default_path("config", "policy.json")))
     scan.add_argument("--max-findings", type=int, default=250)
     scan.set_defaults(func=_cmd_scan)
@@ -98,7 +114,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve = sub.add_parser("serve", help="Start HTTP scanning service")
     serve.add_argument("--host", type=str, default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8787)
-    serve.add_argument("--rules", type=str, default=str(_default_path("rules", "active.json")))
+    serve.add_argument("--rules", type=str, default=str(_default_rules_path()))
     serve.add_argument("--policy", type=str, default=str(_default_path("config", "policy.json")))
     serve.add_argument("--max-findings", type=int, default=250)
     serve.set_defaults(func=_cmd_serve)

@@ -12,7 +12,7 @@ class PromptShieldTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         root = Path(__file__).resolve().parent.parent
-        cls.compiled = compile_rules(load_rules(root / "rules" / "active.json"))
+        cls.compiled = compile_rules(load_rules(root / "rules" / "base.json"))
         cls.policy = load_policy(root / "config" / "policy.json")
 
     def test_blocks_known_override_pattern(self):

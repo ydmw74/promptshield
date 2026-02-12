@@ -62,7 +62,8 @@ Behavior:
 - downloads only run for sources with `enabled=true`
 - SHA256 verification is mandatory
 - successful feed payloads are stored in `rules/feeds/*.json`
-- `rules/active.json` is rebuilt atomically
+- `rules/active.json` is rebuilt atomically (runtime artifact; do not commit)
+- if `rules/active.json` is missing, the scanner falls back to `rules/base.json`
 
 ## Integration (Agent Pipeline)
 
@@ -83,3 +84,11 @@ Recommended order for incoming data:
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
+
+## Automation (Optional)
+
+For a simple daily refresh of curated feeds, see:
+- `examples/systemd/promptshield-update.service`
+- `examples/systemd/promptshield-update.timer`
+
+Note: `rules/active.json` is a runtime artifact and will be rebuilt by `update-rules`.

@@ -1,14 +1,22 @@
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+*.egg-info/
+
 .venv/
 venv/
 .pytest_cache/
+
 .DS_Store
+._*
+
+# Local env / overrides (never commit)
+.env
+config/*.local.json
 
 # Runtime outputs
 logs/
 rules/feeds/
-
-# Local env
-.env
+rules/active.json
+rules/active.json.bak

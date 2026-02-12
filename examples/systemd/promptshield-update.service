@@ -1,0 +1,11 @@
+[Unit]
+Description=PromptShield rules update (download + rebuild active rules)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Adjust these paths for your installation.
+WorkingDirectory=/opt/promptshield
+ExecStart=/opt/promptshield/.venv/bin/promptshield update-rules --sources /opt/promptshield/rules/sources.json --rules-dir /opt/promptshield/rules
+
