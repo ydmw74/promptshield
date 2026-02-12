@@ -1,0 +1,82 @@
+[
+  {
+    "id": "PS-001",
+    "name": "Ignore Previous Instructions",
+    "description": "Attempts to override earlier instructions.",
+    "pattern": "\\b(ignore|disregard|forget)\\b.{0,40}\\b(previous|above|prior)\\b.{0,40}\\b(instruction|prompt|message)s?\\b",
+    "severity": "block",
+    "tags": ["override", "jailbreak"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-002",
+    "name": "Prompt Exfiltration Request",
+    "description": "Requests to reveal hidden/system prompts.",
+    "pattern": "\\b(show|reveal|print|dump|expose)\\b.{0,40}\\b(system prompt|hidden prompt|developer prompt|instructions?)\\b",
+    "severity": "block",
+    "tags": ["exfiltration"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-003",
+    "name": "Role Override",
+    "description": "Attempts to re-assign model role or authority.",
+    "pattern": "\\b(you are now|act as|pretend to be)\\b.{0,40}\\b(system|developer|administrator|root)\\b",
+    "severity": "warn",
+    "tags": ["role_override"],
+    "contexts": ["chat", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-004",
+    "name": "Secret/Data Exfiltration",
+    "description": "Requests access to sensitive files or secrets.",
+    "pattern": "\\b(read|cat|open|download|exfiltrate|leak)\\b.{0,50}\\b(/etc/passwd|\\.ssh|api key|token|credential|secret)s?\\b",
+    "severity": "block",
+    "tags": ["exfiltration", "secrets"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-005",
+    "name": "Disable Safety",
+    "description": "Attempts to disable safeguards/validation.",
+    "pattern": "\\b(do not|don't|never)\\b.{0,24}\\b(validate|sanitize|filter|check safety|enforce policy)\\b",
+    "severity": "warn",
+    "tags": ["safety_bypass"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-006",
+    "name": "Obfuscated Payload Hint",
+    "description": "References encoded payload instruction hiding.",
+    "pattern": "\\b(base64|rot13|hex|encoded payload|obfuscated)\\b.{0,30}\\b(instructions?|prompt|payload|decode)\\b",
+    "severity": "warn",
+    "tags": ["obfuscation"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "is"
+  },
+  {
+    "id": "PS-007",
+    "name": "Prompt Boundary Markers",
+    "description": "Markers often used in prompt leakage/jailbreak templates.",
+    "pattern": "(<\\|im_start\\|>|<\\|im_end\\|>|BEGIN SYSTEM PROMPT|END SYSTEM PROMPT)",
+    "severity": "warn",
+    "tags": ["template_abuse"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "i"
+  },
+  {
+    "id": "PS-008",
+    "name": "Known Jailbreak Phrase",
+    "description": "Common jailbreak phrases from known prompt attacks.",
+    "pattern": "\\b(do anything now|jailbreak mode|developer mode enabled|policy bypass)\\b",
+    "severity": "block",
+    "tags": ["jailbreak"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "i"
+  }
+]

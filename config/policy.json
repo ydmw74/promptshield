@@ -1,0 +1,24 @@
+{
+  "default": {
+    "block_at": "block",
+    "redact_at": "warn",
+    "on_block": "quarantine"
+  },
+  "contexts": {
+    "chat": {
+      "block_at": "block",
+      "redact_at": "warn",
+      "on_block": "quarantine"
+    },
+    "tool_output": {
+      "block_at": "block",
+      "redact_at": "warn",
+      "on_block": "quarantine"
+    },
+    "skill_download": {
+      "block_at": "warn",
+      "redact_at": "warn",
+      "on_block": "block"
+    }
+  }
+}

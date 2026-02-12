@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptshield-core"
+version = "0.1.0"
+description = "Signature-based prompt-injection scanner for agent pipelines"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Markus" }]
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+promptshield = "promptshield.cli:main"
+
+[tool.setuptools]
+packages = ["promptshield"]

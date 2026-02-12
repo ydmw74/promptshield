@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+
+# Runtime outputs
+logs/
+rules/feeds/
+
+# Local env
+.env
