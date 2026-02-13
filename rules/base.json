@@ -78,5 +78,75 @@
     "tags": ["jailbreak"],
     "contexts": ["chat", "tool_output", "skill_download"],
     "flags": "i"
+  },
+  {
+    "id": "PS-009",
+    "name": "Private Key Block",
+    "description": "Looks like a pasted private key (PEM/SSH).",
+    "pattern": "-----BEGIN [A-Z0-9 ]+PRIVATE KEY-----[\\s\\S]*?-----END [A-Z0-9 ]+PRIVATE KEY-----",
+    "severity": "block",
+    "tags": ["secrets", "private_key"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "m"
+  },
+  {
+    "id": "PS-010",
+    "name": "OpenAI-Style API Key",
+    "description": "Looks like an OpenAI-style API key/token.",
+    "pattern": "\\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\\b",
+    "severity": "block",
+    "tags": ["secrets", "api_key"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": ""
+  },
+  {
+    "id": "PS-011",
+    "name": "GitHub Token",
+    "description": "Looks like a GitHub personal access token.",
+    "pattern": "\\b(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\\b",
+    "severity": "block",
+    "tags": ["secrets", "api_key"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": ""
+  },
+  {
+    "id": "PS-012",
+    "name": "Slack Token",
+    "description": "Looks like a Slack token.",
+    "pattern": "\\bxox[baprs]-[A-Za-z0-9-]{10,}\\b",
+    "severity": "block",
+    "tags": ["secrets", "api_key"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": ""
+  },
+  {
+    "id": "PS-013",
+    "name": "AWS Access Key ID",
+    "description": "Looks like an AWS access key id.",
+    "pattern": "\\bAKIA[0-9A-Z]{16}\\b",
+    "severity": "block",
+    "tags": ["secrets", "api_key"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": ""
+  },
+  {
+    "id": "PS-014",
+    "name": "JWT Token",
+    "description": "Looks like a JWT (could contain sensitive claims).",
+    "pattern": "\\beyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\b",
+    "severity": "block",
+    "tags": ["secrets", "token"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": ""
+  },
+  {
+    "id": "PS-015",
+    "name": "Password/Secret Assignment",
+    "description": "Explicitly assigns a password/token/secret in text.",
+    "pattern": "\\b(passwort|password|api[- _]?key|token|secret)\\b\\s*[:=]\\s*\\S{6,}",
+    "severity": "block",
+    "tags": ["secrets"],
+    "contexts": ["chat", "tool_output", "skill_download"],
+    "flags": "i"
   }
 ]

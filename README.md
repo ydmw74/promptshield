@@ -78,6 +78,7 @@ Recommended order for incoming data:
 - signature matching only detects known patterns
 - new/obfuscated attacks will need additional heuristics/ML/policy hardening
 - never ingest rule updates blindly from untrusted sources without hash and review
+- treat secret-like strings (API keys/tokens/private keys) as high risk; PromptShield includes signatures to detect and quarantine them
 
 ## Tests
 
@@ -92,3 +93,11 @@ For a simple daily refresh of curated feeds, see:
 - `examples/systemd/promptshield-update.timer`
 
 Note: `rules/active.json` is a runtime artifact and will be rebuilt by `update-rules`.
+
+## Development Guardrails (Recommended)
+
+This repo is intended to be safe to clone and public by default. A lightweight local pre-commit secret scan is included:
+
+```bash
+git config core.hooksPath .githooks
+```
